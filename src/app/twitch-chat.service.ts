@@ -11,7 +11,11 @@ export class TwitchChatService {
 
   public messages$: BehaviorSubject<Array<TmiMessage>> = new BehaviorSubject([]);
   public connected$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  public client: tmi.Client = tmi.Client({});
+  public client: tmi.Client = tmi.Client({
+    connection: {
+      secure: window.location.protocol === 'https:'
+    }
+  });
 
   defaultColors = [
     ['Red', '#FF0000'],

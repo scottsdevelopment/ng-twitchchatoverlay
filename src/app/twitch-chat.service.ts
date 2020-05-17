@@ -1,15 +1,14 @@
-import { Injectable, SecurityContext } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as tmi from 'tmi.js';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { TmiMessage } from './interfaces/TmiMessage';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TwitchChatService {
 
-  public messages$: BehaviorSubject<Array<TmiMessage>> = new BehaviorSubject([]);
+  public messages$: Subject<TmiMessage> = new Subject();
   public connected$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public client: tmi.Client = tmi.Client({
     connection: {
@@ -47,7 +46,7 @@ export class TwitchChatService {
   }
 
   onMessage(channel: string, userstate: tmi.ChatUserstate, message: string, self: boolean): void {
-    this.messages$.next([...this.messages$.value, { channel, userstate, message, self }])
+    this.messages$.next({ channel, userstate, message, self });
   }
 
   getStyle(event: TmiMessage): { [key: string]: any; } {
@@ -66,8 +65,8 @@ export class TwitchChatService {
     return this.defaultColors[i % this.defaultColors.length][1];
   }
 
-  getMessageParts( event: TmiMessage ) {
-    const parts: (string | { image: string })[] = [];
+  getMessageParts( event: TmiMessage ): Array<(string | { image: string })> {
+    const parts: Array<(string | { image: string })> = [];
     const emojis: Array<[string, number[]]> = [];
     const pairs = Object.entries(event.userstate.emotes || {})
    

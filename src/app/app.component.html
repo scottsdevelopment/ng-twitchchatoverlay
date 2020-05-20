@@ -1,11 +1,1 @@
-<div #container class="container">
-  <div class="message" *ngFor="let messageEvent of messageList">
-    <span class="message__user" [ngStyle]="messageEvent.style">
-      <img *ngIf="messageEvent.badges?.broadcaster" class="message__badge" src="./assets/images/broadcaster.png" />{{ messageEvent.username }}</span>
-    <span class="message__text">: </span>
-    <div class="message__wrap" *ngFor="let part of messageEvent.messageParts">
-      <img *ngIf="part.image" class="message__emoji" src="{{ getProtocol() }}//static-cdn.jtvnw.net/emoticons/v1/{{ part.image }}/1.0" />
-      <span *ngIf="!part.image" class="message__text">{{ part }}</span>
-    </div>
-  </div>
-</div>
+<router-outlet></router-outlet>

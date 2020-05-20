@@ -1,0 +1,11 @@
+<nav class="header">
+    <div [routerLink]="['']" class="header__icon-container">
+        <img class="header__icon" src="./assets/images/logo.png">
+    </div>
+    <div [routerLink]="['', 'config', 'chat']"  routerLinkActive="active-link" class="header__link">
+        Chat Widget
+    </div>
+</nav>
+<main class="main">
+    <router-outlet></router-outlet>
+</main>

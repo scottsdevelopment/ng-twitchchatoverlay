@@ -1,0 +1,16 @@
+.preview {
+    height: 500px;
+}
+
+.config {
+    &__url {
+        width: 50%;
+        max-width: 100%;
+    }
+}
+
+.label {
+    width: 7em;
+    display: inline-block;
+    font-size: 1.4rem;
+}

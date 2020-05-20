@@ -1,0 +1,28 @@
+.container {
+    overflow: hidden;
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+}
+
+.message {
+    font-size: 14px;
+    &__badge {
+        display: inline-block;
+    }
+    &__wrap {
+        display: inline-block;
+    }
+    &__emoji-wrapper {
+        display: inline-block;
+        height: 30px;
+        width: 30px;
+    }
+    &__emoji {
+        display: inline-block;
+        margin: 0 0.25rem;
+    }
+    &__text {
+        display: inline-block;
+    }
+}

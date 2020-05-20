@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import * as tmi from 'tmi.js';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { TmiMessage } from './interfaces/TmiMessage';
+import { TmiMessage } from '../interfaces/TmiMessage';
+import { WindowService } from './window.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TwitchChatService {
-
   public messages$: Subject<TmiMessage> = new Subject();
   public connected$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public client: tmi.Client = tmi.Client({
     connection: {
-      secure: window.location.protocol === 'https:'
+      secure: this.window.getProtocol() === 'https:'
     }
   });
 
@@ -34,13 +34,13 @@ export class TwitchChatService {
     ['SpringGreen', '#00FF7F']
   ];
 
-  constructor() {
+  constructor(public window: WindowService) {
     this.client.connect();
     this.client.on('connected', (_, __) => this.connected$.next(true));
     this.client.on('message', this.onMessage.bind(this));
   }
 
-  joinChannel(channel: string) {
+  joinChannel(channel: string): void {
     const channels = channel.split(',');
     channels.forEach(channel => this.client.join(channel));
   }
@@ -60,7 +60,7 @@ export class TwitchChatService {
     return styles;
   }
 
-  getColorForName( username: string ) {
+  getColorForName( username: string ): string {
     const i = username.charCodeAt(0) + username.charCodeAt(username.length - 1);
     return this.defaultColors[i % this.defaultColors.length][1];
   }
@@ -95,5 +95,4 @@ export class TwitchChatService {
   
     return parts;
   }
-
 }

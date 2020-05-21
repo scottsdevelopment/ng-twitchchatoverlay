@@ -23,7 +23,7 @@ export class WindowService {
     }
     const style = document.createElement('style');
     style.id = id;
-    style.innerText = `@import url('https://fonts.googleapis.com/css2?family=${font}:wght@300&display=swap'); app-chat-widget { font-family: ${font} }`;
+    style.innerText = `@import url('https://fonts.googleapis.com/css2?family=${font}'); app-chat-widget { font-family: ${font} }`;
     document.body.appendChild(style);
   }
 }

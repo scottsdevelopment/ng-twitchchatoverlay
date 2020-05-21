@@ -10,7 +10,7 @@
         display: inline-block;
     }
     &__wrap {
-        display: inline-block;
+        display: inline;
     }
     &__emoji-wrapper {
         display: inline-block;
@@ -22,6 +22,6 @@
         margin: 0 0.25rem;
     }
     &__text {
-        display: inline-block;
+        display: inline;
     }
 }

@@ -7,13 +7,15 @@ import { ConfigComponent } from './config/config.component';
 import { ChatWidgetComponent } from './chat-widget/chat-widget.component';
 import { FormsModule }   from '@angular/forms';
 import { HomepageComponent } from './homepage/homepage.component';
+import { FaqComponent } from './faq/faq.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConfigComponent,
     ChatWidgetComponent,
-    HomepageComponent
+    HomepageComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,

@@ -73,7 +73,7 @@ export class ChatWidgetComponent {
         badges: {
           broadcaster: (Math.random() * 100 > 50) ? '1' : null
         },
-        color: '#000000',
+        color: this.tmi.getColorForName('test' + i),
         username: 'test' + i,
         messageParts: ['lorem ipsum, lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumipsumipsumipsumipsumipsumipsumipsumipsumipsumipsum', { image: '44' }]
       }), 100 * i);

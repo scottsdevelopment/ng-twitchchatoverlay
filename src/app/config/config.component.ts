@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import ChatWidgetOptions from '../interfaces/ChatWidgetOptions';
 import { ConfigService } from '../services/config.service';
-import { debounce } from 'rxjs/operators';
-import { timer } from 'rxjs';
+import { WindowService } from '../services/window.service';
 
 @Component({
   selector: 'app-config',
@@ -12,13 +11,13 @@ import { timer } from 'rxjs';
 })
 export class ConfigComponent implements OnInit {
 
-  constructor(private router: Router, public config: ConfigService) { }
+  constructor(private router: Router, public config: ConfigService, private window: WindowService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  getWidgetLink() {
-    return window.location.origin + this.router.createUrlTree(['/widgets/chat'], { queryParams: this.getOptions() }).toString();
+  getWidgetLink(): string {
+    return this.window.getUrl(this.router.createUrlTree(['', 'widgets', 'chat'], { queryParams: this.getOptions() }).toString());
   }
 
   getOptions(): ChatWidgetOptions {
@@ -29,7 +28,7 @@ export class ConfigComponent implements OnInit {
     }
   }
 
-  copy($event: MouseEvent) {
+  copy($event: MouseEvent): void {
     const input = <HTMLInputElement>$event.currentTarget;
     input.select();
     input.setSelectionRange(0, input.value.length);

@@ -1,23 +1,26 @@
 <h1>Chat Widget Settings</h1>
 <div>
     <label class="label">Channel: </label>
-    <input type="text" [ngModel]="config.channel$ | async" (ngModelChange)="config.channel$.next(config.sanitize($event))" />
+    <input type="text" [ngModel]="config.channel$ | async"
+        (ngModelChange)="config.channel$.next(config.sanitize($event))" />
 </div>
 <div>
-    <label class="label">Text Color: </label><input type="color" [ngModel]="config.textColor$ | async" (ngModelChange)="config.textColor$.next('#'+config.sanitize($event))"  />
+    <label class="label">Text Color: </label><input type="color" [ngModel]="config.textColor$ | async"
+        (ngModelChange)="config.textColor$.next('#'+config.sanitize($event))" />
 </div>
 <div>
     <label class="label">Font Family: </label>
-    <input type="text" [ngModel]="config.fontFamily$ | async" (ngModelChange)="config.fontFamily$.next(config.sanitize($event))" />
+    <input type="text" [ngModel]="config.fontFamily$ | async"
+        (ngModelChange)="config.fontFamily$.next(config.sanitize($event))" />
 </div>
 <div>
-    <label class="label">Widget URL: </label><input readonly (click)="copy($event)" #configUrl class="config__url" type="text" [value]="getWidgetLink()" />
+    <label class="label">Widget URL: </label><input readonly (click)="copy($event)" #configUrl class="config__url"
+        type="text" [value]="getWidgetLink()" />
 </div>
 <div>
     <button (click)="config.debug$.next($event)">Debug</button>
 </div>
-<hr />
-<h2>Widget Preview</h2>
+<h2>Chat Widget Preview</h2>
 <div class="preview">
     <app-chat-widget></app-chat-widget>
 </div>

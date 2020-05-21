@@ -9,17 +9,13 @@ body {
     margin: 0;
     height: 100vh;
     font-family: Poppins, Helvetica, sans-serif;
+    max-height: 100vh;
+    background: none;
 }
 
 input, textarea, button {
     font-family: Poppins, Helvetica, sans-serif;
     border: 1px solid #000000;
-}
-
-body {
-    max-height: 100vh;
-    background: #F0F0FF;
-    color: #000000;
 }
 
 a, a:visited {

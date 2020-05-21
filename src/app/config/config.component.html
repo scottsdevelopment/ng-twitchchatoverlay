@@ -14,6 +14,21 @@
         (ngModelChange)="config.fontFamily$.next(config.sanitize($event))" />
 </div>
 <div>
+    <label class="label">Font Size: </label>
+    <input type="number" [ngModel]="config.fontSize$ | async"
+        (ngModelChange)="config.fontSize$.next($event)" />
+</div>
+<div>
+    <label class="label">Display badges: </label>
+    <input type="checkbox" [ngModel]="config.displayBadges$ | async"
+        (ngModelChange)="config.displayBadges$.next($event)" />
+</div>
+<div>
+    <label class="label">Animations: </label>
+    <input type="checkbox" [ngModel]="config.displayAnimations$ | async"
+        (ngModelChange)="config.displayAnimations$.next($event)" />
+</div>
+<div>
     <label class="label">Widget URL: </label><input readonly (click)="copy($event)" #configUrl class="config__url"
         type="text" [value]="getWidgetLink()" />
 </div>

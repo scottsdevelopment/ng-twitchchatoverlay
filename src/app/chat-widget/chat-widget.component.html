@@ -1,11 +1,17 @@
 <div #container class="container">
-    <div [@slideInOut] class="message" *ngFor="let messageEvent of messages">
-      <span class="message__user" [ngStyle]="messageEvent.style"><img *ngIf="messageEvent.badges?.broadcaster" class="message__badge" src="./assets/images/broadcaster.png" />{{ messageEvent.username }}:&nbsp;</span>
-      <div class="message__wrap" *ngFor="let part of messageEvent.messageParts">
-        <div *ngIf="part.image" class="message__emoji-wrapper">
-          <img class="message__emoji" src="{{ window.getProtocol() }}//static-cdn.jtvnw.net/emoticons/v1/{{ part.image }}/1.0" />
-        </div>
-        <span *ngIf="!part.image" [ngStyle]="{ color: config.textColor$ | async }" class="message__text">{{ part }}</span>
+  <div [@slideInOut] [@.disabled]="!(config.displayAnimations$ | async)" class="message" *ngFor="let message of messages"
+    [style.font-size]="(config.fontSize$ | async) + 'px'">
+    <span class="message__user" [style.color]="message.color">
+      <span *ngIf="(config.displayBadges$ | async)">
+        <img *ngIf="message.badges?.broadcaster" class="message__badge" src="./assets/images/broadcaster.png" />
+      </span>
+      {{ message.username }}:&nbsp;</span>
+    <div class="message__wrap" *ngFor="let part of message.messageParts">
+      <div *ngIf="part.image" class="message__emoji-wrapper">
+        <img class="message__emoji"
+          src="{{ window.getProtocol() }}//static-cdn.jtvnw.net/emoticons/v1/{{ part.image }}/1.0" />
       </div>
+      <span *ngIf="!part.image" [style.color]="config.textColor$ | async" class="message__text">{{ part }}</span>
     </div>
   </div>
+</div>

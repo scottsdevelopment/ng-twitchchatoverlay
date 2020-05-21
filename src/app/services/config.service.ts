@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, timer } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { debounce } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +9,9 @@ export class ConfigService {
   public channel$: BehaviorSubject<string> = new BehaviorSubject('OdsScott');
   public textColor$: BehaviorSubject<string> = new BehaviorSubject('#F0F0FF');
   public fontFamily$: BehaviorSubject<string> = new BehaviorSubject('Poppins');
+  public fontSize$: BehaviorSubject<number> = new BehaviorSubject(14);
+  public displayBadges$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  public displayAnimations$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   public debug$: Subject<void> = new Subject();
 
   constructor(private route: ActivatedRoute) {
@@ -25,23 +27,22 @@ export class ConfigService {
       if (queryParams.has('fontFamily')) {
         this.fontFamily$.next(this.sanitize(queryParams.get('fontFamily')));
       }
-    });
 
-    this.fontFamily$.pipe(debounce(() => timer(1000))).subscribe((font) => this.loadFont(font));
+      if (queryParams.has('fontSize')) {
+        this.fontSize$.next(parseInt(queryParams.get('fontSize'), 10));
+      }
+
+      if (queryParams.has('displayBadges')) {
+        this.displayBadges$.next(queryParams.get('displayBadges') === 'true');
+      }
+
+      if (queryParams.has('displayAnimations')) {
+        this.displayAnimations$.next(queryParams.get('displayAnimations') === 'true');
+      }
+    });
   }
 
   sanitize(input: string) {
     return input.replace(/[^\w\s]+/g,'');
-  }
-
-  loadFont(font: string): void {
-    const existingFont = document.getElementById('configFont')
-    if (existingFont) {
-      existingFont.remove();
-    }
-    const style = document.createElement('style');
-    style.id = 'configFont';
-    style.innerText = `@import url('https://fonts.googleapis.com/css2?family=${font}:wght@300&display=swap'); app-chat-widget { font-family: ${font} }`;
-    document.body.appendChild(style);
   }
 }

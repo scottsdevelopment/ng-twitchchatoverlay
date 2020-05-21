@@ -25,6 +25,9 @@ export class ConfigComponent implements OnInit {
       channel: this.config.channel$.value,
       textColor: this.config.textColor$.value,
       fontFamily: this.config.fontFamily$.value,
+      fontSize: this.config.fontSize$.value,
+      displayBadges: this.config.displayBadges$.value ? 'true' : 'false',
+      displayAnimations: this.config.displayAnimations$.value ? 'true' : 'false',
     }
   }
 
@@ -33,5 +36,9 @@ export class ConfigComponent implements OnInit {
     input.select();
     input.setSelectionRange(0, input.value.length);
     document.execCommand('copy');
+  }
+
+  parseInt(s: string, radix?: number) {
+    return parseInt(s, radix)
   }
 }

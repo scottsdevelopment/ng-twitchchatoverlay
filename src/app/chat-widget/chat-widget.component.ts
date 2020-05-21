@@ -49,13 +49,14 @@ export class ChatWidgetComponent {
         }
         this.messages.push({
           badges: messageEvent.userstate.badges,
-          style: tmi.getStyle(messageEvent),
+          color: messageEvent.userstate.color || this.tmi.getColorForName(messageEvent.userstate.username),
           username: messageEvent.userstate['display-name'],
           messageParts: tmi.getMessageParts(messageEvent)
         });
       });
 
     this.config.debug$.subscribe(() => this.debug());
+    this.config.fontFamily$.pipe(debounce(() => timer(1000))).subscribe((font) => this.window.loadFont(font));
   }
 
   ngAfterViewChecked() {
@@ -69,8 +70,10 @@ export class ChatWidgetComponent {
   debug() {
     for (let i = 0; i < 51; i++) {
       setTimeout(() => this.messages.push({
-        badges: null,
-        style: {},
+        badges: {
+          broadcaster: (Math.random() * 100 > 50) ? '1' : null
+        },
+        color: '#000000',
         username: 'test' + i,
         messageParts: ['lorem ipsum, lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumipsumipsumipsumipsumipsumipsumipsumipsumipsumipsum', { image: '44' }]
       }), 100 * i);
